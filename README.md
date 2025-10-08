@@ -5,7 +5,7 @@ A minimal e-commerce search example built using **Expo (React Native)** and **Ty
 ## 🚀 Setup
 
 ```bash
-git clone <repo_url>
+git clone https://github.com/oladokun-o/active-search.git
 cd active-search
 npm install
 npm start
