@@ -45,17 +45,12 @@ export default function SearchScreen() {
         ? `${API_URL}?q=${encodeURIComponent(search)}`
         : API_URL;
 
-      console.log("🔍 Fetching from:", url);
-
       const res = await fetch(url, {
         method: "GET",
         headers: {
           Accept: "application/json",
         },
       });
-
-      console.log("📊 Response status:", res.status);
-      console.log("📋 Response OK:", res.ok);
 
       // Check if response is OK
       if (!res.ok) {
@@ -64,7 +59,6 @@ export default function SearchScreen() {
 
       // Check content type
       const contentType = res.headers.get("content-type");
-      console.log("📄 Content-Type:", contentType);
 
       if (!contentType?.includes("application/json")) {
         const text = await res.text();
@@ -75,20 +69,11 @@ export default function SearchScreen() {
       }
 
       const json = await res.json();
-      console.log(
-        "✅ Parsed JSON type:",
-        Array.isArray(json) ? "Array" : "Object"
-      );
-      console.log(
-        "✅ Data length:",
-        Array.isArray(json) ? json.length : json.data?.length
-      );
 
       // Handle both direct array and enveloped response
       const productsData = Array.isArray(json) ? json : json.data || [];
 
       setProducts(productsData);
-      console.log("🎯 Set", productsData.length, "products");
     } catch (err) {
       console.error("❌ Fetch error:", err);
       const errorMessage =
