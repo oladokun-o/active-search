@@ -1,10 +1,3 @@
-Good catch — you’re right. The README should include a **short, thoughtful “Notes on Approach” section** so reviewers see your reasoning and structure clearly.
-
-Here’s an improved, **clean and professional** `README.md` version — fits your Expo + TypeScript setup and ticks all the evaluation boxes.
-
----
-
-````md
 # 🛍️ Active Search (Expo React Native + TypeScript)
 
 A minimal **e-commerce product search demo** built using **Expo (React Native)** and **TypeScript**.
@@ -16,10 +9,11 @@ This project demonstrates a simple but realistic example of **active search** �
 ## 🚀 Setup / Run Steps
 
 1. Clone the repo
+   
    ```bash
-   git clone https://github.com/oladokun-o/active-search.git
-   cd active-search
-````
+      git clone https://github.com/oladokun-o/active-search.git
+      cd active-search
+   ```
 
 2. Install dependencies
 
