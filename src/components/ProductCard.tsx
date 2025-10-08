@@ -21,8 +21,6 @@ export default function ProductCard({ item, onPress }: ProductCardProps) {
   // Get the main image from the nested images object
   const mainImage = images?.watch || images?.dial;
 
-  console.log("Rendering ProductCard for item:", item);
-
   return (
     <TouchableOpacity style={styles.card} onPress={onPress}>
       {mainImage ? (
