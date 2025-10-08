@@ -1,10 +1,21 @@
 export interface Product {
-  id: string;
-  main: string; // image url
-  [key: string]: any; // allow dynamic key-value pairs
+  _id: string;
+  reference?: string;
+  brand?: string;
+  color?: string;
+  bezel?: string;
+  bracelet?: string;
+  diameter?: string;
+  materials?: string;
+  model?: string;
+  images?: {
+    watch?: string;
+    dial?: string;
+  };
+  [key: string]: any; // other dynamic properties
 }
 
 export interface ApiResponse {
   data: Product[];
-  _metadata: Record<string, any>;
+  _metadata?: Record<string, any>;
 }

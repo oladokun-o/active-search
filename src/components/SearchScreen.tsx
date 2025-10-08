@@ -10,7 +10,8 @@ import {
 import ProductCard from "../components/ProductCard";
 import { Product, ApiResponse } from "../types";
 
-const API_URL = "https://dialist.ngrok.dev/api/v1/watches";
+const API_URL =
+  "https://cors-anywhere.herokuapp.com/https://dialist.ngrok.dev/api/v1/watches";
 
 export default function SearchScreen() {
   const [query, setQuery] = useState<string>("");
@@ -29,12 +30,12 @@ export default function SearchScreen() {
   const fetchProducts = async (search: string) => {
     try {
       setLoading(true);
-      setError(null);
       const res = await fetch(`${API_URL}${search ? `?q=${search}` : ""}`);
       const json: ApiResponse = await res.json();
       setProducts(json.data || []);
     } catch (err) {
-      setError("Failed to fetch products");
+      console.error(err);
+      setError("Failed to fetch data");
     } finally {
       setLoading(false);
     }
@@ -58,7 +59,9 @@ export default function SearchScreen() {
       ) : (
         <FlatList
           data={products}
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={(item, index) =>
+            item.id?.toString() || `product-${index}`
+          }
           renderItem={({ item }) => (
             <ProductCard
               item={item}

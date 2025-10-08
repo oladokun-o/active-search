@@ -15,23 +15,40 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ item, onPress }: ProductCardProps) {
-  const { main, ...details } = item;
+  // Extract images object and _id, keep everything else for display
+  const { images, _id, ...details } = item;
+
+  // Get the main image from the nested images object
+  const mainImage = images?.watch || images?.dial;
+
+  console.log("Rendering ProductCard for item:", item);
 
   return (
     <TouchableOpacity style={styles.card} onPress={onPress}>
-      {main ? (
-        <Image source={{ uri: main }} style={styles.image} />
+      {mainImage ? (
+        <Image
+          source={{ uri: mainImage }}
+          style={styles.image}
+          resizeMode="cover"
+        />
       ) : (
-        <View style={[styles.image, styles.placeholder]} />
+        <View style={[styles.image, styles.placeholder]}>
+          <Text style={styles.placeholderText}>No Image</Text>
+        </View>
       )}
 
       <View style={styles.info}>
-        {Object.entries(details).map(([key, value]) => (
-          <Text key={key} style={styles.text}>
-            <Text style={styles.key}>{key}: </Text>
-            {String(value)}
-          </Text>
-        ))}
+        {Object.entries(details).map(([key, value]) => {
+          // Skip rendering if value is null, undefined, or an object
+          if (!value || typeof value === "object") return null;
+
+          return (
+            <Text key={key} style={styles.text} numberOfLines={1}>
+              <Text style={styles.key}>{key}: </Text>
+              {String(value)}
+            </Text>
+          );
+        })}
       </View>
     </TouchableOpacity>
   );
@@ -46,9 +63,26 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     alignItems: "flex-start",
   },
-  image: { width: 60, height: 60, borderRadius: 6, marginRight: 10 },
-  placeholder: { backgroundColor: "#ddd" },
+  image: {
+    width: 80,
+    height: 80,
+    borderRadius: 6,
+    marginRight: 10,
+  },
+  placeholder: {
+    backgroundColor: "#ddd",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  placeholderText: {
+    fontSize: 10,
+    color: "#999",
+  },
   info: { flex: 1 },
-  text: { fontSize: 12, color: "#333", marginBottom: 2 },
+  text: {
+    fontSize: 12,
+    color: "#333",
+    marginBottom: 3,
+  },
   key: { fontWeight: "bold" },
 });
